@@ -25,7 +25,7 @@ const cats = [
   { id: 16, name: "Sophie", image: "https://plus.unsplash.com/premium_photo-1677545182425-4fb12bdb9faf?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjV8fGNoYXR8ZW58MHx8MHx8fDA%3D" },
 ];
 
-function App() {
+const App = () => {
   const [remainingCats, setRemainingCats] = useState([...cats]);
   const [currentPair, setCurrentPair] = useState([cats[0], cats[1]]);
   const [winner, setWinner] = useState(null);
@@ -45,13 +45,23 @@ function App() {
 
   const handleVote = (selectedCat) => {
     const loser = currentPair.find(cat => cat.id !== selectedCat.id);
-    setMatchHistory([...matchHistory, {
-      round: currentRound,
-      phase: getTournamentPhase(currentRound),
-      winner: selectedCat,
-      loser: loser
-    }]);
+    updateMatchHistory(selectedCat, loser);
+    updateRemainingCats(selectedCat);
+  };
 
+  const updateMatchHistory = (winner, loser) => {
+    setMatchHistory(prev => [
+      ...prev,
+      {
+        round: currentRound,
+        phase: getTournamentPhase(currentRound),
+        winner,
+        loser
+      }
+    ]);
+  };
+
+  const updateRemainingCats = (selectedCat) => {
     const newRemainingCats = remainingCats.filter(cat => 
       !currentPair.some(pairCat => pairCat.id === cat.id)
     );
@@ -130,6 +140,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
 export default App;

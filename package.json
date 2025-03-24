@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prod": "vite prod --host top-cat.saillardq.fr"
+    "prod": "vite prod --host 0.0.0.0"
   },
   "dependencies": {
     "react": "^19.0.0",

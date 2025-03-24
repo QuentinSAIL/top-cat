@@ -2,6 +2,8 @@ import { useState } from 'react';
 import './App.css';
 import CatBracket from './components/CatBracket';
 import Winner from './components/Winner';
+import styles from './styles/App.module.css';
+import PageTitle from './components/PageTitle';
 
 const cats = [
   { id: 1, name: "Luna", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNRosMZwU_zwK4Nm-rw1l1VjRZykWWwSJg3Q&s" },
@@ -28,6 +30,7 @@ function App() {
   const [winner, setWinner] = useState(null);
   const [currentRound, setCurrentRound] = useState(1);
   const [matchHistory, setMatchHistory] = useState([]);
+  const [isStarted, setIsStarted] = useState(false);
 
   const getTournamentPhase = (round) => {
     if (round <= 8) return "8ème de finale";
@@ -60,18 +63,47 @@ function App() {
     }
   };
 
+  const resetTournament = () => {
+    setRemainingCats([...cats]);
+    setCurrentPair([cats[0], cats[1]]);
+    setWinner(null);
+    setCurrentRound(1);
+    setMatchHistory([]);
+    setIsStarted(false);
+  };
+
   return (
-    <div className="app">
-      {!winner ? (
+    <div className={styles.app}>
+      {!isStarted ? (
         <>
-          <h2>{getTournamentPhase(currentRound)} - Match {currentRound}</h2>
+          <PageTitle />
+          <button 
+            className={styles.startButton} 
+            onClick={() => setIsStarted(true)}
+          >
+            Commencer le tournoi
+          </button>
+        </>
+      ) : !winner ? (
+        <>
+          <h2 className={styles.roundTitle}>
+            {getTournamentPhase(currentRound)} - Match {currentRound}
+          </h2>
           <CatBracket 
             currentPair={currentPair} 
             onVote={handleVote}
           />
         </>
       ) : (
-        <Winner winner={winner} matchHistory={matchHistory} />
+        <>
+          <Winner winner={winner} matchHistory={matchHistory} />
+          <button 
+            className={`${styles.startButton} ${styles.restartButton}`} 
+            onClick={resetTournament}
+          >
+            Nouveau Tournoi 🔄
+          </button>
+        </>
       )}
     </div>
   );

@@ -1,29 +1,35 @@
 function CatBracket({ currentPair, onVote }) {
   if (!currentPair || currentPair.length !== 2) {
-    return (
-      <div className="bracket">
-        <h1>Chargement...</h1>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
     <div className="bracket">
       <h2>Quel chat préférez-vous ?</h2>
-      <div className="matchup-container">
-        <div className="matchup">
-          <div className="cat-card" onClick={() => onVote(currentPair[0])}>
-            <img src={currentPair[0].image} alt={currentPair[0].name} />
-            <h3>{currentPair[0].name}</h3>
-          </div>
-          <div className="cat-card" onClick={() => onVote(currentPair[1])}>
-            <img src={currentPair[1].image} alt={currentPair[1].name} />
-            <h3>{currentPair[1].name}</h3>
-          </div>
-        </div>
-      </div>
+      <Matchup currentPair={currentPair} onVote={onVote} />
     </div>
   );
 }
+
+const Loading = () => (
+  <div className="bracket">
+    <h1>Chargement...</h1>
+  </div>
+);
+
+const Matchup = ({ currentPair, onVote }) => (
+  <div className="matchup-container">
+    {currentPair.map(cat => (
+      <CatCard key={cat.id} cat={cat} onVote={onVote} />
+    ))}
+  </div>
+);
+
+const CatCard = ({ cat, onVote }) => (
+  <div className="cat-card" onClick={() => onVote(cat)}>
+    <img src={cat.image} alt={cat.name} />
+    <h3>{cat.name}</h3>
+  </div>
+);
 
 export default CatBracket; 

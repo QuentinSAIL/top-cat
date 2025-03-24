@@ -1,6 +1,6 @@
-.matchHistory {
+.TournamentResume {
   margin: 30px auto;
-  max-width: 600px;
+  max-width: 70%;
   background: white;
   padding: 20px;
   border-radius: 15px;
@@ -17,11 +17,12 @@
 }
 
 .phaseTitle {
-  background: #242424;
+  background: #6c757d;
   color: white;
   padding: 12px;
   border-radius: 8px;
-  margin-bottom: 15px;
+  margin-top: 5px;
+  margin-bottom: 8px;
   font-size: 1.2em;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }

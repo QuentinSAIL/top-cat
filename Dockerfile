@@ -1,16 +1,17 @@
-# Utilisation d'une image Node.js comme base
 FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json .
 
-RUN npm install --frozen-lockfile
+RUN npm install
+
+RUN npm i -g serve
 
 COPY . .
 
 RUN npm run build
 
-EXPOSE 5173
+EXPOSE 3000
 
-CMD ["npm", "run", "preview"]
+CMD [ "serve", "-s", "dist" ]

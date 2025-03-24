@@ -1,6 +1,6 @@
-import styles from '../styles/Winner.module.css';
+import styles from '../styles/TournamentResume.module.css';
 
-function Winner({ winner, matchHistory }) {
+function TournamentResume({ matchHistory }) {
   const groupedMatches = matchHistory.reduce((acc, match) => {
     if (!acc[match.phase]) {
       acc[match.phase] = [];
@@ -10,10 +10,7 @@ function Winner({ winner, matchHistory }) {
   }, {});
 
   return (
-    <div className={styles.winner}>
-      <h1>🏆 Le grand gagnant est {winner.name}! 🏆</h1>
-      <img className={styles.winnerImage} src={winner.image} alt={winner.name} />
-      
+    <div className={styles.TournamentResume}>
       <div className={styles.matchHistory}>
         <h2>Résumé du tournoi</h2>
         {Object.entries(groupedMatches).map(([phase, matches]) => (
@@ -51,4 +48,4 @@ function Winner({ winner, matchHistory }) {
   );
 }
 
-export default Winner; 
+export default TournamentResume; 

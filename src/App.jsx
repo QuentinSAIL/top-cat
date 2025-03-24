@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import './App.css';
 import CatBracket from './components/CatBracket';
-import Winner from './components/Winner';
+import TournamentResume from './components/TournamentResume';
 import styles from './styles/App.module.css';
 import PageTitle from './components/PageTitle';
+import Podium from './components/Podium';
 
 const cats = [
   { id: 1, name: "Luna", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNRosMZwU_zwK4Nm-rw1l1VjRZykWWwSJg3Q&s" },
@@ -31,12 +32,15 @@ function App() {
   const [currentRound, setCurrentRound] = useState(1);
   const [matchHistory, setMatchHistory] = useState([]);
   const [isStarted, setIsStarted] = useState(false);
+  const [thirdPlaceMatch, setThirdPlaceMatch] = useState(null);
+  const [thirdPlace, setThirdPlace] = useState(null);
 
   const getTournamentPhase = (round) => {
     if (round <= 8) return "8ème de finale";
     if (round <= 12) return "Quart de finale";
     if (round <= 14) return "Demi-finale";
-    return "Finale";
+    if (round === 15) return "Finale";
+    return "Petite finale";
   };
 
   const handleVote = (selectedCat) => {
@@ -60,7 +64,15 @@ function App() {
       setCurrentRound(currentRound + 1);
     } else {
       setWinner(selectedCat);
+      const semiFinalLosers = matchHistory
+        .filter(match => match.phase === "Demi-finale")
+        .map(match => match.loser);
+      setThirdPlaceMatch(semiFinalLosers);
     }
+  };
+
+  const handleThirdPlaceVote = (selectedCat) => {
+    setThirdPlace(selectedCat);
   };
 
   const resetTournament = () => {
@@ -70,6 +82,8 @@ function App() {
     setCurrentRound(1);
     setMatchHistory([]);
     setIsStarted(false);
+    setThirdPlaceMatch(null);
+    setThirdPlace(null);
   };
 
   return (
@@ -94,9 +108,18 @@ function App() {
             onVote={handleVote}
           />
         </>
+      ) : thirdPlaceMatch && !thirdPlace ? (
+        <>
+          <h2 className={styles.roundTitle}>Petite finale</h2>
+          <CatBracket 
+            currentPair={thirdPlaceMatch} 
+            onVote={handleThirdPlaceVote}
+          />
+        </>
       ) : (
         <>
-          <Winner winner={winner} matchHistory={matchHistory} />
+          <Podium winner={winner} secondPlace={matchHistory[matchHistory.length - 1].loser} thirdPlace={thirdPlace} />
+          <TournamentResume matchHistory={matchHistory} />
           <button 
             className={`${styles.startButton} ${styles.restartButton}`} 
             onClick={resetTournament}

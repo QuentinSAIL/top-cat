@@ -1,0 +1,101 @@
+.podiumContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  width: 100%;
+}
+
+.podiumTitle {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.podium {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+  padding: 2rem;
+}
+
+.podiumSpot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.podiumSpot:hover {
+  transform: translateY(-10px);
+}
+
+.firstPlace {
+  background: linear-gradient(135deg, #ffd700, #ffa500);
+  height: 340px;
+  width: 200px;
+}
+
+.secondPlace {
+  background: linear-gradient(135deg, #c0c0c0, #a9a9a9);
+  height: 310px;
+  width: 180px;
+}
+
+.thirdPlace {
+  background: linear-gradient(135deg, #cd7f32, #b87333);
+  height: 280;
+  width: 180px;
+}
+
+.catImage {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid white;
+  margin-bottom: 1rem;
+}
+
+.catName {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.rank {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  margin-bottom: 0.5rem;
+}
+
+.crown {
+  font-size: 3rem;
+  position: absolute;
+  top: -40px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+} 

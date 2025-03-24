@@ -9,7 +9,6 @@ function CatBracket({ currentPair, onVote }) {
 
   return (
     <div className="bracket">
-      <h1>Concours du plus beau chat</h1>
       <h2>Quel chat préférez-vous ?</h2>
       <div className="matchup-container">
         <div className="matchup">

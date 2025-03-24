@@ -1,0 +1,118 @@
+.winner {
+  text-align: center;
+  padding: 20px;
+  color: #333;
+}
+
+.winnerImage {
+  max-width: 300px;
+  border-radius: 10px;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.winner h1 {
+  color: #f5f7fa;
+  margin-bottom: 20px;
+}
+
+.matchHistory {
+  margin: 30px auto;
+  max-width: 600px;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.matchHistory h2 {
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+.phaseGroup {
+  margin-bottom: 30px;
+}
+
+.phaseTitle {
+  background: #242424;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.match {
+  background: #f8f9fa;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+}
+
+.matchDetails {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.catInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  color: #495057;
+}
+
+.winnerInfo {
+  justify-content: flex-start;
+}
+
+.winnerInfo strong {
+  color: #2ecc71;
+  font-size: 1.1em;
+}
+
+.loserInfo {
+  justify-content: flex-end;
+}
+
+.versus {
+  flex: 0 0 auto;
+  font-weight: bold;
+  color: #6c757d;
+  background: #e9ecef;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.smallImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.winnerInfo .smallImage {
+  border-color: #2ecc71;
+}
+
+@media (max-width: 600px) {
+  .matchDetails {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .catInfo {
+    justify-content: center;
+  }
+  
+  .loserInfo {
+    flex-direction: row-reverse;
+  }
+} 

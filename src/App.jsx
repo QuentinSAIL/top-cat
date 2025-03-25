@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import CatBracket from './components/CatBracket';
 import TournamentResume from './components/TournamentResume';
@@ -36,6 +36,14 @@ const App = () => {
   const [thirdPlaceMatch, setThirdPlaceMatch] = useState(null);
   const [thirdPlace, setThirdPlace] = useState(null);
   const [view, setView] = useState('home'); // 'home', 'tournament', 'gallery'
+  const [catScores, setCatScores] = useState(() => {
+    const savedScores = localStorage.getItem('catScores');
+    return savedScores ? JSON.parse(savedScores) : {};
+  });
+
+  useEffect(() => {
+    localStorage.setItem('catScores', JSON.stringify(catScores));
+  }, [catScores]);
 
   const getTournamentPhase = (round) => {
     if (round <= 8) return "8ème de finale";
@@ -45,10 +53,18 @@ const App = () => {
     return "Petite finale";
   };
 
+  const updateCatScore = (catId) => {
+    setCatScores(prevScores => ({
+      ...prevScores,
+      [catId]: (prevScores[catId] || 0) + 1
+    }));
+  };
+
   const handleVote = (selectedCat) => {
     const loser = currentPair.find(cat => cat.id !== selectedCat.id);
     updateMatchHistory(selectedCat, loser);
     updateRemainingCats(selectedCat);
+    updateCatScore(selectedCat.id);
   };
 
   const updateMatchHistory = (winner, loser) => {
@@ -85,6 +101,7 @@ const App = () => {
 
   const handleThirdPlaceVote = (selectedCat) => {
     setThirdPlace(selectedCat);
+    updateCatScore(selectedCat.id);
   };
 
   const resetTournament = () => {
@@ -116,7 +133,7 @@ const App = () => {
       </nav>
 
       {view === 'gallery' ? (
-        <CatGallery cats={cats} />
+        <CatGallery cats={cats} catScores={catScores} />
       ) : !isStarted ? (
         <>
           <PageTitle />

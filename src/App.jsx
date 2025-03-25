@@ -5,6 +5,7 @@ import TournamentResume from './components/TournamentResume';
 import styles from './styles/App.module.css';
 import PageTitle from './components/PageTitle';
 import Podium from './components/Podium';
+import CatGallery from './components/CatGallery';
 
 const cats = [
   { id: 1, name: "Luna", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNRosMZwU_zwK4Nm-rw1l1VjRZykWWwSJg3Q&s" },
@@ -34,6 +35,7 @@ const App = () => {
   const [isStarted, setIsStarted] = useState(false);
   const [thirdPlaceMatch, setThirdPlaceMatch] = useState(null);
   const [thirdPlace, setThirdPlace] = useState(null);
+  const [view, setView] = useState('home'); // 'home', 'tournament', 'gallery'
 
   const getTournamentPhase = (round) => {
     if (round <= 8) return "8ème de finale";
@@ -98,12 +100,32 @@ const App = () => {
 
   return (
     <div className={styles.app}>
-      {!isStarted ? (
+      <nav className={styles.nav}>
+        <button 
+          className={`${styles.navButton} ${view === 'home' ? styles.active : ''}`}
+          onClick={() => setView('home')}
+        >
+          Accueil
+        </button>
+        <button 
+          className={`${styles.navButton} ${view === 'gallery' ? styles.active : ''}`}
+          onClick={() => setView('gallery')}
+        >
+          Galerie
+        </button>
+      </nav>
+
+      {view === 'gallery' ? (
+        <CatGallery cats={cats} />
+      ) : !isStarted ? (
         <>
           <PageTitle />
           <button 
             className={styles.startButton} 
-            onClick={() => setIsStarted(true)}
+            onClick={() => {
+              setIsStarted(true);
+              setView('tournament');
+            }}
           >
             Commencer le tournoi
           </button>
